@@ -1,6 +1,14 @@
 import type { NextPage } from "next";
-import React, { FormEvent, MutableRefObject, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  MutableRefObject,
+  useContext,
+  useRef,
+  useState,
+} from "react";
+import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
+import { FavoritesContext } from "../contexts/FavoritesContext/context";
 import { loadLocation } from "../utils/load-location";
 import { loadMusics } from "../utils/load-musics";
 import { loadWeather } from "../utils/load-weather";
@@ -17,6 +25,9 @@ const Home: NextPage = () => {
     setUseCurrentLocation((prevState: boolean) => !prevState);
     searchInput.current.toggleAttribute("disabled");
   };
+
+  const favoritesContext = useContext(FavoritesContext);
+  const { setFavorites } = favoritesContext;
 
   const handleSearch = async (event: FormEvent) => {
     event.preventDefault();
@@ -36,23 +47,24 @@ const Home: NextPage = () => {
 
     const genre = switchGenres(temperature);
 
-    const musics = await loadMusics(genre);
-
-    setData(musics);
-
-    document.getElementById("btnSave")?.addEventListener("click", () => {
-      const savedPlaylist = {
-        musics: data,
-        date: new Date(),
-        temperature: `${temperature}°C`,
-        city: city,
-        genre: genre,
-      };
-      window.localStorage.setItem(
-        `Playlist ${Date.now()}`,
-        JSON.stringify(savedPlaylist)
-      );
-    });
+    await loadMusics(genre, setData).then((res) =>
+      document.getElementById("btnSave")?.addEventListener("click", () => {
+        const date = new Date();
+        const formattedDate = `${date.toLocaleDateString()} - ${date.getHours()}:${date.getMinutes()}`;
+        const id = uuidv4();
+        setFavorites((prevState) => [
+          {
+            id,
+            musics: res,
+            date: formattedDate,
+            temperature: `${temperature}°C`,
+            city: city,
+            genre: genre,
+          },
+          ...prevState,
+        ]);
+      })
+    );
   };
 
   return (

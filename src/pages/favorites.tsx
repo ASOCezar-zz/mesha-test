@@ -1,11 +1,38 @@
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage } from "next";
+import { useContext } from "react";
+import { FavoritesContext } from "../contexts/FavoritesContext/context";
 
 const Favorites: NextPage = () => {
-  return <div>Hello World</div>;
+  const favoritesContext = useContext(FavoritesContext);
+  const { favorites, setFavorites } = favoritesContext;
+
+  const handleDelete = (id: string) => {
+    const attFavorites = favorites.filter((favorite) => favorite.id !== id);
+    setFavorites(attFavorites);
+  };
+
+  return (
+    <ul>
+      {favorites?.map((favorite) => (
+        <li key={favorite.id}>
+          <img src={favorite.musics[0].coverImg} />
+          <h2>Playlist {favorite.id} </h2>
+          <span> Salva em: {favorite.date}</span>
+          <span> Gênero: {favorite.genre} </span>
+          <span>
+            Temperatura no momento da Pesquisa: {favorite.temperature}
+          </span>
+          <button type="button" onClick={() => handleDelete(favorite.id)}>
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 // export const getServerSideProps: GetServerSideProps = async () => {
-
+//   const f;
 // };
 
 export default Favorites;
