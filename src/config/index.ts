@@ -1,6 +1,7 @@
 export default {
+  locale: "pt-BR",
   openWeather: {
-    url: "http://api.openweathermap.org/data/2.5/weather?",
+    url: "https://api.openweathermap.org/data/2.5/weather?q=",
     key: "fee6ccfcd026e7a99875430767eb76b0",
   },
   shazam: {

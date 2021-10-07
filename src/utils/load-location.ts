@@ -1,7 +1,7 @@
 import config from "../config";
-import IMapLocationReturn, { mapLocation } from "./map-location";
+import { mapLocation } from "./map-location";
 
-export const loadLocation = async (): Promise<IMapLocationReturn> => {
+export const loadLocation = async (): Promise<string> => {
   const data = await fetch(config.extremeIpLookup.url);
   const json = await data.json();
   const result = mapLocation(json);
