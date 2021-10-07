@@ -1,12 +1,13 @@
 import type { NextPage } from "next";
-import { FormEvent, MutableRefObject, useRef, useState } from "react";
+import React, { FormEvent, MutableRefObject, useRef, useState } from "react";
 import { loadLocation } from "../utils/load-location";
 import { loadMusics } from "../utils/load-musics";
 import { loadWeather } from "../utils/load-weather";
+import { IMusics } from "../utils/map-musics";
 import { switchGenres } from "../utils/switch-genres";
 
 const Home: NextPage = () => {
-  const data: unknown[] = [];
+  const [data, setData] = useState<IMusics[]>([]);
 
   const [useCurrentLocation, setUseCurrentLocation] = useState(false);
   const searchInput = useRef() as MutableRefObject<HTMLInputElement>;
@@ -27,10 +28,10 @@ const Home: NextPage = () => {
 
     const genre = switchGenres({ temperature });
 
-    await loadMusics({ genre });
-  };
+    const musics = await loadMusics({ genre });
 
-  console.log(useCurrentLocation);
+    setData(musics);
+  };
 
   return (
     <>
@@ -54,11 +55,15 @@ const Home: NextPage = () => {
         <section className="musics">
           <ul>
             {data.map((music) => (
-              <li className="Card Music" key={music.id}>
+              <li className="Card Music" key={music.title + music.artist}>
                 <a href={music.url}>
-                  <img src={music.image} alt="" />
+                  <img src={music.coverImg} alt={music.title + "cover image"} />
                   <h2>{music.title}</h2>
                 </a>
+                <audio controls>
+                  <source src={music.previewURL} type="audio/x-m4a" />
+                  Sorry, your browser does not support audio tags.
+                </audio>
               </li>
             ))}
           </ul>

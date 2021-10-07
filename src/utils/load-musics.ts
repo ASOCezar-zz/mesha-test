@@ -1,10 +1,13 @@
 import config from "../config";
+import { IMusics, mapMusics } from "./map-musics";
 
 interface loadMusicsProps {
   genre: string;
 }
 
-export const loadMusics = async ({ genre }: loadMusicsProps): Promise<void> => {
+export const loadMusics = async ({
+  genre,
+}: loadMusicsProps): Promise<IMusics[]> => {
   const data = await fetch(`${config.shazam.url}?term=${genre}`, {
     method: "GET",
     headers: {
@@ -15,7 +18,8 @@ export const loadMusics = async ({ genre }: loadMusicsProps): Promise<void> => {
 
   const json = await data.json();
 
-  const musics = json.tracks.hits;
+  const result = json.tracks.hits;
+  const musics = mapMusics(result);
 
   return musics;
 };
