@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import React, { FormEvent, MutableRefObject, useRef, useState } from "react";
+import Header from "../components/Header";
 import { loadLocation } from "../utils/load-location";
 import { loadMusics } from "../utils/load-musics";
 import { loadWeather } from "../utils/load-weather";
@@ -24,26 +25,46 @@ const Home: NextPage = () => {
         ? await loadLocation()
         : searchInput.current.value;
 
-    const temperature = await loadWeather({ city });
+    const temperature = await loadWeather(city);
 
-    const genre = switchGenres({ temperature });
+    if (temperature === null) {
+      searchInput.current.classList.add("error");
+      return;
+    }
 
-    const musics = await loadMusics({ genre });
+    searchInput.current.classList.remove("error");
+
+    const genre = switchGenres(temperature);
+
+    const musics = await loadMusics(genre);
 
     setData(musics);
+
+    document.getElementById("btnSave")?.addEventListener("click", () => {
+      const savedPlaylist = {
+        musics: data,
+        date: new Date(),
+        temperature: `${temperature}°C`,
+        city: city,
+        genre: genre,
+      };
+      window.localStorage.setItem(
+        `Playlist ${Date.now()}`,
+        JSON.stringify(savedPlaylist)
+      );
+    });
   };
 
   return (
     <>
-      <header>
-        <img alt="Logo" />
-      </header>
+      <Header />
       <main>
         <form onSubmit={(e) => handleSearch(e)}>
           <input
             type="text"
             ref={searchInput}
-            placeholder="Digite sua localização"
+            placeholder="Digite sua cidade"
+            required
           />
           <input
             type="checkbox"
@@ -67,6 +88,9 @@ const Home: NextPage = () => {
               </li>
             ))}
           </ul>
+          <button type="button" id="btnSave">
+            Salvar Playlist
+          </button>
         </section>
       </main>
       <footer>

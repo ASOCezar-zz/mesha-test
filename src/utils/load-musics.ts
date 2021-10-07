@@ -1,13 +1,7 @@
 import config from "../config";
 import { IMusics, mapMusics } from "./map-musics";
 
-interface loadMusicsProps {
-  genre: string;
-}
-
-export const loadMusics = async ({
-  genre,
-}: loadMusicsProps): Promise<IMusics[]> => {
+export const loadMusics = async (genre: string): Promise<IMusics[]> => {
   const data = await fetch(`${config.shazam.url}?term=${genre}`, {
     method: "GET",
     headers: {
