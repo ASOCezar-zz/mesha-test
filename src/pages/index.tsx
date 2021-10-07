@@ -69,7 +69,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Header />
+      <Header source="/favorites" target="favorites" />
       <main>
         <form onSubmit={(e) => handleSearch(e)}>
           <input
