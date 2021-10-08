@@ -1,9 +1,8 @@
-import { NextPage } from "next";
 import { useContext } from "react";
-import Header from "../components/Header";
 import { FavoritesContext } from "../contexts/FavoritesContext/context";
+import { FavoritesTemplate } from "../templates/FavoritesTemplate";
 
-const Favorites: NextPage = () => {
+export default function Favorites() {
   const favoritesContext = useContext(FavoritesContext);
   const { favorites, setFavorites } = favoritesContext;
 
@@ -13,26 +12,6 @@ const Favorites: NextPage = () => {
   };
 
   return (
-    <>
-      <Header source="/" target="Home" />
-      <ul>
-        {favorites?.map((favorite) => (
-          <li key={favorite.id}>
-            <img src={favorite.musics[0].coverImg} />
-            <h2>Playlist {favorite.id} </h2>
-            <span> Salva em: {favorite.date}</span>
-            <span> Gênero: {favorite.genre} </span>
-            <span>
-              Temperatura no momento da Pesquisa: {favorite.temperature}
-            </span>
-            <button type="button" onClick={() => handleDelete(favorite.id)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </>
+    <FavoritesTemplate favorites={favorites} handleDelete={handleDelete} />
   );
-};
-
-export default Favorites;
+}

@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Footer = styled.footer`
-  ${({ theme }) => css``}
+  ${({ theme }) => css`
+    height: 30px;
+  `}
 `;

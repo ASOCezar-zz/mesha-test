@@ -7,12 +7,12 @@ import { GlobalStyles } from "../styles/global-styles";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <FavoritesProvider>
+    <FavoritesProvider>
+      <ThemeProvider theme={theme}>
         <Component {...pageProps} />
         <GlobalStyles />
-      </FavoritesProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </FavoritesProvider>
   );
 }
 export default MyApp;

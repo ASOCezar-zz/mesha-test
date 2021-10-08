@@ -1,8 +1,9 @@
 export const theme = {
   colors: {
-    primaryColor: "#0A1128",
+    primaryColor: "#0D314B",
     lightBg: "#FFFFFF",
     white: "#FFFFFF",
+    ice: "#E8E8E8",
     darkBg: "#0A1128",
     secondaryColor: "#DC143C",
     mediumGray: "#DDDDDD",
@@ -25,6 +26,11 @@ export const theme = {
       xlarge: "4rem",
       xxlarge: "4.8rem",
       huge: "5.6rem",
+    },
+    weight: {
+      normal: "400",
+      bold: "700",
+      extraBold: "800",
     },
   },
   media: {

@@ -19,32 +19,47 @@ import * as Styled from "./styles";
 export const MainContentComponent = () => {
   const [data, setData] = useState<IMusics[]>([]);
 
-  const [useCurrentLocation, setUseCurrentLocation] = useState(false);
-  const searchInput = useRef() as MutableRefObject<HTMLInputElement>;
-
-  const handleCheckboxChange = () => {
-    setUseCurrentLocation((prevState: boolean) => !prevState);
-    searchInput.current.toggleAttribute("disabled");
-  };
+  const [querySystem, setQuerySystem] = useState<
+    "myLocalization" | "city" | "coordenates" | "zipCode"
+  >("myLocalization");
+  const [searchValue, setSearchValue] = useState<string | string[]>("");
+  const option = useRef() as MutableRefObject<HTMLInputElement>;
 
   const favoritesContext = useContext(FavoritesContext);
   const { setFavorites } = favoritesContext;
 
   const handleSearch = async (event: FormEvent) => {
     event.preventDefault();
-    const city =
-      useCurrentLocation === true
-        ? await loadLocation()
-        : searchInput.current.value;
+    let query: string;
 
-    const temperature = await loadWeather(city);
+    const getQuery = async (): Promise<string> => {
+      switch (querySystem) {
+        case "city":
+          query = `q=${searchValue}`;
+          break;
+        case "coordenates":
+          query = `lat=${searchValue[0]}&lon=${searchValue[1]}`;
+          break;
+        case "zipCode":
+          query = `zip=${searchValue}`;
+          break;
+        case "myLocalization":
+          query = await loadLocation();
+          break;
+      }
+      return query;
+    };
 
-    if (temperature === null) {
-      searchInput.current.classList.add("error");
+    console.log(await getQuery());
+
+    const weather = await loadWeather(await getQuery());
+
+    if (weather === null) {
+      console.warn("Failed to load temperature");
       return;
     }
 
-    searchInput.current.classList.remove("error");
+    const { temperature, city } = weather;
 
     const genre = switchGenres(temperature);
 
@@ -71,9 +86,10 @@ export const MainContentComponent = () => {
   return (
     <Styled.Main>
       <FormSearch
-        handleCheckboxChange={handleCheckboxChange}
+        setQuerySystem={setQuerySystem}
         handleSearch={handleSearch}
-        searchInput={searchInput}
+        setSearchValue={setSearchValue}
+        option={option}
       />
       <MusicsSection musics={data} />
     </Styled.Main>

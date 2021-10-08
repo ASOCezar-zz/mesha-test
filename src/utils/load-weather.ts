@@ -1,6 +1,8 @@
 import config from "../config";
 
-export const loadWeather = async (city: string): Promise<number | null> => {
+export const loadWeather = async (
+  city: string
+): Promise<{ temperature: number; city: string } | null> => {
   try {
     const data = await fetch(
       `${config.openWeather.url + city}&appid=${
@@ -9,9 +11,7 @@ export const loadWeather = async (city: string): Promise<number | null> => {
     );
     const json = await data.json();
 
-    const weather = json.main.temp as number;
-
-    return weather;
+    return { temperature: json.main.temp as number, city: json.name };
   } catch (err) {
     return null;
   }
