@@ -1,19 +1,19 @@
 import * as Styled from "./styles";
 import { v4 as uuidV4 } from "uuid";
 import { MutableRefObject, useContext, useEffect, useRef } from "react";
-import { IMusics } from "../../utils/map-musics";
+import { ISongs } from "../../utils/map-songs";
 import { FavoritesContext } from "../../contexts/FavoritesContext/context";
 import { Types } from "../../contexts/FavoritesContext/types";
 
 interface ISaveBtnProps {
-  musics: IMusics[];
+  songs: ISongs[];
   temperature: number;
   city: string;
   genre: string;
 }
 
 export const SaveBtnComponent = ({
-  musics,
+  songs,
   temperature,
   city,
   genre,
@@ -22,14 +22,14 @@ export const SaveBtnComponent = ({
   const btnSave = useRef() as MutableRefObject<HTMLButtonElement>;
 
   useEffect(() => {
-    if (musics.length === 0) {
+    if (songs.length === 0) {
       if (btnSave.current) {
         btnSave.current.setAttribute("disabled", "true");
       }
     } else {
       btnSave.current?.removeAttribute("disabled");
     }
-  }, [musics]);
+  }, [songs]);
 
   const handleSave = () => {
     const date = new Date();
@@ -38,7 +38,7 @@ export const SaveBtnComponent = ({
       type: Types.ADD_PLAYLIST,
       payload: {
         id: uuidV4(),
-        musics: musics,
+        songs: songs,
         date: formattedDate,
         temperature: `${temperature}°C`,
         city: city,

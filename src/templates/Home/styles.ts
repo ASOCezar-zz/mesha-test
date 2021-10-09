@@ -1,8 +1,15 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  ${() => css`
+  ${({ theme }) => css`
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media ${theme.media.desktop} {
+      height: 100vh;
+      overflow: hidden;
+    }
   `}
 `;

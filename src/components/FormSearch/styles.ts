@@ -9,7 +9,7 @@ export const Form = styled.form`
     padding-inline: 10vw;
     padding-bottom: 40px;
     gap: 20px;
-    background-color: ${theme.colors.mediumGray};
+    background-color: ${theme.colors.ice};
 
     @media ${theme.media.desktop} {
       padding-top: 55px;

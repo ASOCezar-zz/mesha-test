@@ -1,10 +1,10 @@
 import React from "react";
 import config from "../config";
-import { IMusics, mapMusics } from "./map-musics";
+import { ISongs, mapSongs } from "./map-songs";
 
-export const loadMusics = async (
+export const loadSongs = async (
   genre: string,
-  setData: React.Dispatch<React.SetStateAction<IMusics[]>>
+  setData: React.Dispatch<React.SetStateAction<ISongs[]>>
 ): Promise<void> => {
   await fetch(`${config.shazam.url}?term=${genre}`, {
     method: "GET",
@@ -14,7 +14,7 @@ export const loadMusics = async (
     },
   })
     .then(async (res) => await res.json())
-    .then((res) => mapMusics(res.tracks.hits))
+    .then((res) => mapSongs(res.tracks.hits))
     .then((res) => {
       setData(res);
       return res;

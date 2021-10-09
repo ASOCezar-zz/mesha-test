@@ -5,7 +5,7 @@ export const theme = {
     green: "#6aa84f",
     ice: "#E8E8E8",
     darkBg: "#0A1128",
-    secondaryColor: "#DC143C",
+    lightBlue: "#A1B5D0",
     mediumGray: "#DDDDDD",
   },
   font: {

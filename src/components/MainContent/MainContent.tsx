@@ -6,16 +6,16 @@ import {
   useState,
 } from "react";
 import { loadLocation } from "../../utils/load-location";
-import { loadMusics } from "../../utils/load-musics";
+import { loadSongs } from "../../utils/load-songs";
 import { loadWeather } from "../../utils/load-weather";
-import { IMusics } from "../../utils/map-musics";
+import { ISongs } from "../../utils/map-songs";
 import { switchGenres } from "../../utils/switch-genres";
 import FormSearch from "../FormSearch";
-import MusicsSection from "../MusicsSection";
+import SongsSection from "../SongsSection";
 import * as Styled from "./styles";
 
 export const MainContentComponent = () => {
-  const [data, setData] = useState<IMusics[]>([]);
+  const [data, setData] = useState<ISongs[]>([]);
   const [city, setCity] = useState<string>("");
   const [temperature, setTemperature] = useState<number>(0);
   const [genre, setGenre] = useState<string>("");
@@ -64,7 +64,7 @@ export const MainContentComponent = () => {
 
   useEffect(() => {
     if (genre.length !== 0) {
-      loadMusics(genre, setData);
+      loadSongs(genre, setData);
     }
   }, [genre]);
 
@@ -78,8 +78,8 @@ export const MainContentComponent = () => {
         option={option}
         geographicValue={geographicValue}
       />
-      <MusicsSection
-        musics={data}
+      <SongsSection
+        songs={data}
         temperature={temperature}
         city={city}
         genre={genre}

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Title } from "../MusicCard/styles";
+import { Title } from "../SongCard/styles";
 
 export const Container = styled.div`
   ${({ theme }) => css`

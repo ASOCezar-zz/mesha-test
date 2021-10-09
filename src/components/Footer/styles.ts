@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 export const Footer = styled.footer`
   ${({ theme }) => css`
     height: 40px;
+    width: 100%;
     background-color: ${theme.colors.primaryColor};
     justify-content: center;
     display: flex;

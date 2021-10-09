@@ -1,25 +1,25 @@
 import * as Styled from "./styles";
-import GridMusics from "../GridMusics";
+import CarouselSongs from "../CarouselSongs";
 import SaveBtn from "../SaveBtn";
-import { IMusics } from "../../utils/map-musics";
+import { ISongs } from "../../utils/map-songs";
 
-interface IMusicsSectionProps {
-  musics: IMusics[];
+interface ISongsSectionProps {
+  songs: ISongs[];
   temperature: number;
   city: string;
   genre: string;
 }
 
-export const MusicsSectionComponent = ({
-  musics,
+export const SongsSectionComponent = ({
+  songs,
   temperature,
   city,
   genre,
-}: IMusicsSectionProps) => (
+}: ISongsSectionProps) => (
   <Styled.Section>
-    <GridMusics musics={musics} />
+    <CarouselSongs songs={songs} />
     <SaveBtn
-      musics={musics}
+      songs={songs}
       temperature={temperature}
       city={city}
       genre={genre}

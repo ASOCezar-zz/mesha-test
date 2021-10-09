@@ -4,7 +4,7 @@ export const BtnSave = styled.button`
   ${({ theme }) => css`
     border: none;
     min-width: 130px;
-    max-height: 90px;
+    max-height: 60px;
     height: 55%;
     background-color: ${theme.colors.primaryColor};
     color: ${theme.colors.ice};
@@ -14,6 +14,7 @@ export const BtnSave = styled.button`
     user-select: none;
     cursor: pointer;
     opacity: 0.7;
+    border-radius: 15px;
 
     :hover {
       opacity: 1;

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IMusics } from "../../utils/map-musics";
+import { ISongs } from "../../utils/map-songs";
 import { Types } from "./types";
 
 export interface IPlaylist {
   id: string;
-  musics: IMusics[];
+  songs: ISongs[];
   date: string;
   temperature: string;
   city: string;
@@ -27,6 +27,7 @@ type PlaylistPayload = {
   [Types.DELETE_PLAYLIST]: {
     id: string;
   };
+  [Types.SET_PLAYLIST]: IPlaylist[];
 };
 
 export type PlaylistActions =
@@ -44,7 +45,7 @@ export const playlistReducer = (
           ...state,
           {
             id: action.payload.id,
-            musics: action.payload.musics,
+            songs: action.payload.songs,
             city: action.payload.city,
             date: action.payload.date,
             temperature: action.payload.temperature,
@@ -56,7 +57,7 @@ export const playlistReducer = (
         ...state,
         {
           id: action.payload.id,
-          musics: action.payload.musics,
+          songs: action.payload.songs,
           city: action.payload.city,
           date: action.payload.date,
           temperature: action.payload.temperature,
@@ -71,6 +72,9 @@ export const playlistReducer = (
         ])
       );
       return [...state.filter((product) => product.id !== action.payload.id)];
+
+    case Types.SET_PLAYLIST:
+      return [...action.payload];
     default:
       return state;
   }

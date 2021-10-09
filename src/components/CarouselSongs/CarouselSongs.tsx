@@ -1,14 +1,14 @@
 import * as Styled from "./styles";
-import { IMusics } from "../../utils/map-musics";
-import MusicCard from "../MusicCard";
+import { ISongs } from "../../utils/map-songs";
+import SongCard from "../SongCard";
 
-interface IGridMusicsProps {
-  musics: IMusics[];
+interface ICarouselSongsProps {
+  songs: ISongs[];
 }
 
-export const GridMusicsComponent = ({ musics }: IGridMusicsProps) => (
+export const CarouselSongsComponent = ({ songs }: ICarouselSongsProps) => (
   <Styled.Container>
-    {musics.map((musics, index) => {
+    {songs.map((song, index) => {
       if (index === 0) {
         return (
           <input
@@ -30,8 +30,8 @@ export const GridMusicsComponent = ({ musics }: IGridMusicsProps) => (
       );
     })}
     <Styled.Grid className="cards">
-      {musics.map((music, index) => (
-        <MusicCard music={music} key={music.title} index={index} />
+      {songs.map((song, index) => (
+        <SongCard song={song} key={song.title} index={index} />
       ))}
     </Styled.Grid>
   </Styled.Container>
