@@ -2,7 +2,7 @@ export const theme = {
   colors: {
     primaryColor: "#0D314B",
     lightBg: "#FFFFFF",
-    white: "#FFFFFF",
+    green: "#6aa84f",
     ice: "#E8E8E8",
     darkBg: "#0A1128",
     secondaryColor: "#DC143C",
@@ -34,6 +34,6 @@ export const theme = {
     },
   },
   media: {
-    lteMedium: "(max-width: 768px)",
+    desktop: "(min-width: 768px)",
   },
 } as const;

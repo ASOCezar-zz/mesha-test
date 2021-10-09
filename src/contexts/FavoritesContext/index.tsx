@@ -1,32 +1,32 @@
-import { FavoritesContext, IFavorites } from "./context";
-import { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
+import { FavoritesContext } from "./context";
+import { initialState } from "./data";
+import { playlistReducer, PlaylistActions, IPlaylist } from "./reducer";
 
-type FavoritesProviderProps = {
-  children: React.ReactNode;
+export type InitialStateType = {
+  favorites: IPlaylist[];
 };
 
-function getStorageValue(key: string, defaultValue: IFavorites[]) {
-  if (typeof window !== "undefined") {
-    const saved = window.localStorage.getItem(key);
-    if (saved) {
-      const initial = JSON.parse(saved);
-      return initial;
-    }
-    return defaultValue;
-  }
-}
+const mainReducer = (
+  { favorites }: InitialStateType,
+  action: PlaylistActions
+) => ({
+  favorites: playlistReducer(favorites, action),
+});
 
-export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
-  const [favorites, setFavorites] = useState<IFavorites[]>(() =>
-    getStorageValue("favorites-playlist", [])
-  );
-
+export const FavoritesProvider: React.FC = ({ children }) => {
   useEffect(() => {
-    localStorage.setItem("favorites-playlist", JSON.stringify(favorites));
-  }, [favorites]);
+    const favorites = window.localStorage.getItem("favorite-playlist");
+    if (favorites !== null) {
+      const json = JSON.parse(favorites);
+      initialState.favorites = json;
+    }
+  }, []);
+
+  const [state, dispatch] = useReducer(mainReducer, initialState);
 
   return (
-    <FavoritesContext.Provider value={{ favorites, setFavorites }}>
+    <FavoritesContext.Provider value={{ state, dispatch }}>
       {children}
     </FavoritesContext.Provider>
   );

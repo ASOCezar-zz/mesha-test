@@ -7,9 +7,32 @@ interface IGridMusicsProps {
 }
 
 export const GridMusicsComponent = ({ musics }: IGridMusicsProps) => (
-  <Styled.Grid>
-    {musics.map((music) => (
-      <MusicCard music={music} key={music.title} />
-    ))}
-  </Styled.Grid>
+  <Styled.Container>
+    {musics.map((musics, index) => {
+      if (index === 0) {
+        return (
+          <input
+            type="radio"
+            name="slider"
+            id={"item-" + (index + 1)}
+            key={index + 1}
+            defaultChecked
+          />
+        );
+      }
+      return (
+        <input
+          type="radio"
+          name="slider"
+          id={"item-" + (index + 1)}
+          key={index + 1}
+        />
+      );
+    })}
+    <Styled.Grid className="cards">
+      {musics.map((music, index) => (
+        <MusicCard music={music} key={music.title} index={index} />
+      ))}
+    </Styled.Grid>
+  </Styled.Container>
 );

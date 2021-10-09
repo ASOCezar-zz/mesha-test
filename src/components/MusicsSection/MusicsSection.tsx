@@ -5,11 +5,24 @@ import { IMusics } from "../../utils/map-musics";
 
 interface IMusicsSectionProps {
   musics: IMusics[];
+  temperature: number;
+  city: string;
+  genre: string;
 }
 
-export const MusicsSectionComponent = ({ musics }: IMusicsSectionProps) => (
+export const MusicsSectionComponent = ({
+  musics,
+  temperature,
+  city,
+  genre,
+}: IMusicsSectionProps) => (
   <Styled.Section>
     <GridMusics musics={musics} />
-    <SaveBtn />
+    <SaveBtn
+      musics={musics}
+      temperature={temperature}
+      city={city}
+      genre={genre}
+    />
   </Styled.Section>
 );

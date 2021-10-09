@@ -1,12 +1,10 @@
 import {
   FormEvent,
   MutableRefObject,
-  useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { FavoritesContext } from "../../contexts/FavoritesContext/context";
 import { loadLocation } from "../../utils/load-location";
 import { loadMusics } from "../../utils/load-musics";
 import { loadWeather } from "../../utils/load-weather";
@@ -18,39 +16,37 @@ import * as Styled from "./styles";
 
 export const MainContentComponent = () => {
   const [data, setData] = useState<IMusics[]>([]);
+  const [city, setCity] = useState<string>("");
+  const [temperature, setTemperature] = useState<number>(0);
+  const [genre, setGenre] = useState<string>("");
 
   const [querySystem, setQuerySystem] = useState<
     "myLocalization" | "city" | "coordenates" | "zipCode"
   >("myLocalization");
-  const [searchValue, setSearchValue] = useState<string | string[]>("");
-  const option = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const favoritesContext = useContext(FavoritesContext);
-  const { setFavorites } = favoritesContext;
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const [geographicValue, setGeographicValue] = useState<{
+    lat: string;
+    long: string;
+  }>({ lat: "", long: "" });
+
+  const option = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleSearch = async (event: FormEvent) => {
     event.preventDefault();
-    let query: string;
 
     const getQuery = async (): Promise<string> => {
-      switch (querySystem) {
-        case "city":
-          query = `q=${searchValue}`;
-          break;
-        case "coordenates":
-          query = `lat=${searchValue[0]}&lon=${searchValue[1]}`;
-          break;
-        case "zipCode":
-          query = `zip=${searchValue}`;
-          break;
-        case "myLocalization":
-          query = await loadLocation();
-          break;
-      }
-      return query;
-    };
+      const queries = {
+        myLocalization: async () => `q=${await loadLocation()}`,
+        city: () => `q=${searchValue}`,
+        coordenates: () =>
+          `lat=${geographicValue.lat}&lon=${geographicValue.long}`,
+        zipCode: () => `zip=${searchValue}`,
+      };
 
-    console.log(await getQuery());
+      return queries[querySystem]();
+    };
 
     const weather = await loadWeather(await getQuery());
 
@@ -59,29 +55,18 @@ export const MainContentComponent = () => {
       return;
     }
 
-    const { temperature, city } = weather;
+    setTemperature(weather.temperature);
 
-    const genre = switchGenres(temperature);
+    setCity(weather.city);
 
-    await loadMusics(genre, setData).then((res) =>
-      document.getElementById("btnSave")?.addEventListener("click", () => {
-        const date = new Date();
-        const formattedDate = `${date.toLocaleDateString()} - ${date.getHours()}:${date.getMinutes()}`;
-        const id = uuidv4();
-        setFavorites((prevState) => [
-          {
-            id,
-            musics: res,
-            date: formattedDate,
-            temperature: `${temperature}°C`,
-            city: city,
-            genre: genre,
-          },
-          ...prevState,
-        ]);
-      })
-    );
+    setGenre(switchGenres(temperature));
   };
+
+  useEffect(() => {
+    if (genre.length !== 0) {
+      loadMusics(genre, setData);
+    }
+  }, [genre]);
 
   return (
     <Styled.Main>
@@ -89,9 +74,16 @@ export const MainContentComponent = () => {
         setQuerySystem={setQuerySystem}
         handleSearch={handleSearch}
         setSearchValue={setSearchValue}
+        setGeographicValue={setGeographicValue}
         option={option}
+        geographicValue={geographicValue}
       />
-      <MusicsSection musics={data} />
+      <MusicsSection
+        musics={data}
+        temperature={temperature}
+        city={city}
+        genre={genre}
+      />
     </Styled.Main>
   );
 };

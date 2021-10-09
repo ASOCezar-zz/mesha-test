@@ -1,0 +1,4 @@
+export enum Types {
+  DELETE_PLAYLIST = "DELETE_PLAYLIST",
+  ADD_PLAYLIST = "ADD_PLAYLIST",
+}

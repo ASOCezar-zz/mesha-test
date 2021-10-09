@@ -5,20 +5,18 @@ import { IMusics, mapMusics } from "./map-musics";
 export const loadMusics = async (
   genre: string,
   setData: React.Dispatch<React.SetStateAction<IMusics[]>>
-): Promise<IMusics[]> => {
-  const data = await fetch(`${config.shazam.url}?term=${genre}`, {
+): Promise<void> => {
+  await fetch(`${config.shazam.url}?term=${genre}`, {
     method: "GET",
     headers: {
       "x-rapidapi-host": "shazam.p.rapidapi.com",
       "x-rapidapi-key": config.shazam.key,
     },
-  });
-
-  const json = await data.json();
-
-  const result = json.tracks.hits;
-  const musics = mapMusics(result);
-
-  setData(musics);
-  return musics;
+  })
+    .then(async (res) => await res.json())
+    .then((res) => mapMusics(res.tracks.hits))
+    .then((res) => {
+      setData(res);
+      return res;
+    });
 };
