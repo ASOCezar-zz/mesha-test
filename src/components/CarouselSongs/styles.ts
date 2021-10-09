@@ -17,7 +17,10 @@ export const Container = styled.div`
     #item-3:checked ~ .cards #song-2,
     #item-4:checked ~ .cards #song-3,
     #item-5:checked ~ .cards #song-4 {
-      transform: translatex(clamp(-170px, -40%, 100px)) scale(0.8);
+      @media ${theme.media.desktop} {
+        transform: translatex(clamp(-260px, -80%, -100px)) scale(0.6);
+      }
+      transform: translatex(clamp(-120px, -60%, -50px)) scale(0.8);
       opacity: 0.8;
       z-index: 1;
       audio {
@@ -34,7 +37,11 @@ export const Container = styled.div`
     #item-3:checked ~ .cards #song-1,
     #item-4:checked ~ .cards #song-2,
     #item-5:checked ~ .cards #song-3 {
-      transform: translatex(clamp(-260px, -80%, 100px)) scale(0.6);
+      @media ${theme.media.desktop} {
+        transform: translatex(clamp(-260px, -80%, -100px)) scale(0.6);
+      }
+      transform: translatex(clamp(-120px, -60%, -50px)) scale(0.8);
+
       opacity: 0.4;
       z-index: 0;
       audio {
@@ -51,7 +58,11 @@ export const Container = styled.div`
     #item-3:checked ~ .cards #song-5,
     #item-4:checked ~ .cards #song-1,
     #item-5:checked ~ .cards #song-2 {
-      transform: translatex(clamp(260px, 80%, 100px)) scale(0.6);
+      @media ${theme.media.desktop} {
+        transform: translatex(clamp(260px, 80%, 100px)) scale(0.6);
+      }
+      transform: translatex(clamp(120px, 20%, 50px)) scale(0.8);
+
       opacity: 0.4;
       z-index: 0;
       audio {
@@ -68,7 +79,11 @@ export const Container = styled.div`
     #item-3:checked ~ .cards #song-4,
     #item-4:checked ~ .cards #song-5,
     #item-5:checked ~ .cards #song-1 {
-      transform: translatex(clamp(170px, 40%, 100px)) scale(0.8);
+      @media ${theme.media.desktop} {
+        transform: translatex(clamp(170px, 40%, 100px)) scale(0.8);
+      }
+      transform: translatex(clamp(120px, 20%, 50px)) scale(0.8);
+
       opacity: 0.8;
       z-index: 1;
       audio {

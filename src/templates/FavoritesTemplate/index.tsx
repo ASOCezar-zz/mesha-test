@@ -4,10 +4,10 @@ import { useContext, useEffect } from "react";
 import { FavoritesContext } from "../../contexts/FavoritesContext/context";
 import { Types } from "../../contexts/FavoritesContext/types";
 import { IPlaylist } from "../../contexts/FavoritesContext/reducer";
+import Grid from "../../components/Grid";
 
 export const FavoritesTemplate = () => {
-  const { state, dispatch } = useContext(FavoritesContext);
-  const { favorites } = state;
+  const { dispatch } = useContext(FavoritesContext);
 
   useEffect(() => {
     const localSave = window.localStorage.getItem("favorite-playlist");
@@ -19,33 +19,10 @@ export const FavoritesTemplate = () => {
     //eslint-disable-next-line
   }, []);
 
-  const handleDelete = (id: string) => {
-    dispatch({ type: Types.DELETE_PLAYLIST, payload: { id } });
-  };
-
   return (
     <Styled.Container>
       <Header source="/" target="Home" />
-      {favorites.length ? (
-        <ul>
-          {favorites.map((favorite) => (
-            <li key={favorite.id}>
-              <img src={favorite.songs[0].coverImg} />
-              <h2>Playlist {favorite.id} </h2>
-              <span> Salva em: {favorite.date}</span>
-              <span> Gênero: {favorite.genre} </span>
-              <span>
-                Temperatura no momento da Pesquisa: {favorite.temperature}
-              </span>
-              <button type="button" onClick={() => handleDelete(favorite.id)}>
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>Você não tem Playlists Salvas</div>
-      )}
+      <Grid />
     </Styled.Container>
   );
 };

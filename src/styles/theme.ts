@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
     primaryColor: "#0D314B",
-    lightBg: "#FFFFFF",
+    warning: "#800000",
     green: "#6aa84f",
     ice: "#E8E8E8",
     darkBg: "#0A1128",
