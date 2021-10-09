@@ -40,7 +40,7 @@ export const MainContentComponent = () => {
 
     const getQuery = async (): Promise<string> => {
       const queries = {
-        myLocalization: async () => `q=${await loadLocation()}`,
+        myLocalization: async () => `q=${await loadLocation(setIsError)}`,
         city: () => `q=${searchValue}`,
         coordenates: () =>
           `lat=${geographicValue.lat}&lon=${geographicValue.long}`,
@@ -50,19 +50,16 @@ export const MainContentComponent = () => {
       return queries[querySystem]();
     };
 
-    const weather = await loadWeather(await getQuery());
+    const weather = await loadWeather(await getQuery(), setIsError);
 
-    if (weather === "Error getting temperature") {
-      setIsError(true);
-      return;
+    if (weather !== null) {
+      setIsError(false);
+      setTemperature(weather.temperature);
+
+      setCity(weather.city);
+
+      setGenre(switchGenres(temperature));
     }
-
-    setIsError(false);
-    setTemperature(weather.temperature);
-
-    setCity(weather.city);
-
-    setGenre(switchGenres(temperature));
   };
 
   useEffect(() => {

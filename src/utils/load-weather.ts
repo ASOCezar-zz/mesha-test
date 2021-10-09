@@ -1,10 +1,9 @@
 import config from "../config";
 
 export const loadWeather = async (
-  city: string
-): Promise<
-  { temperature: number; city: string } | "Error getting temperature"
-> => {
+  city: string,
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<{ temperature: number; city: string } | null> => {
   try {
     const data = await fetch(
       `${config.openWeather.url + city}&appid=${
@@ -15,6 +14,7 @@ export const loadWeather = async (
 
     return { temperature: json.main.temp as number, city: json.name };
   } catch (err) {
-    return "Error getting temperature";
+    setIsError(true);
+    return null;
   }
 };

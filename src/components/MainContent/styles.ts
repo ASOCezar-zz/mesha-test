@@ -17,6 +17,7 @@ export const Error = styled.div`
     background-color: ${theme.colors.lightBlue};
     width: 100%;
     height: 100%;
+    max-width: 930px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,6 +66,7 @@ export const Loading = styled.div`
     background-color: ${theme.colors.lightBlue};
     width: 100%;
     height: 100%;
+    max-width: 930px;
     display: flex;
     flex-direction: column;
     align-items: center;
