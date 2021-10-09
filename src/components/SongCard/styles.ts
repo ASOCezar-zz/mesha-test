@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const Wrapper = styled.label`
   ${() => css`
@@ -14,6 +14,8 @@ export const Wrapper = styled.label`
     transition: transform 0.4s ease;
     cursor: pointer;
     list-style: none;
+    white-space: nowrap;
+    overflow: hidden;
   `}
 
   img {
@@ -25,10 +27,17 @@ export const Wrapper = styled.label`
     object-fit: cover;
   }
 `;
-export const Audio = styled.audio`
-  ${() => css``}
+export const Audio = styled.audio``;
+
+const titleAnimation = keyframes`
+  from {transform: translatex(0)}
+  to {transform: translatex(-400px)}
 `;
 
 export const Title = styled.a`
-  ${() => css``}
+  ${() => css`
+    h2 {
+      animation: ${titleAnimation} 5s linear infinite;
+    }
+  `}
 `;

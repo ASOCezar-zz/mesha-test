@@ -12,13 +12,22 @@ export const Main = styled.main`
 `;
 
 export const Container = styled.ul`
-  ${() => css`
+  ${({ theme }) => css`
     list-style: none;
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    padding: 10vw;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-rows: clamp(500px, 40vw, 200px);
+    padding-block: 10vw;
+    padding-inline: 3vw;
     gap: 10vw;
+
+    @media ${theme.media.desktop} {
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 50px;
+      padding-block: 70px;
+      height: 100%;
+    }
   `}
 `;
 
@@ -37,6 +46,7 @@ export const Modal = styled.section<Modal>`
   ${({ theme, isModalOpen }) => css`
     transform: translatey(-100%);
     transition: all 0.5s ease;
+    z-index: 2;
     ${isModalOpen &&
     css`
       transform: translatey(0);
@@ -80,6 +90,7 @@ export const ModalContent = styled.div`
         background-image: url("https://www.svgrepo.com/show/273966/close.svg");
         background-repeat: no-repeat;
         background-position: center;
+        cursor: pointer;
 
         :active {
           opacity: 1;

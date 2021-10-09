@@ -130,7 +130,7 @@ export const FormSearchComponent = ({
             value="coordenates"
             onChange={() => handleCheckboxChange("coordenates")}
           />
-          Pesquisar por coordenadas geográficas (latitude e longitude)
+          Pesquisar por coordenadas
         </Styled.Label>
         <div className="inputs">
           <Styled.TypeInput

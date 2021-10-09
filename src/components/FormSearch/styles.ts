@@ -5,14 +5,18 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1024px;
+    max-width: 930px;
     padding-inline: 10vw;
     padding-bottom: 40px;
+    padding-top: 40px;
     gap: 20px;
     background-color: ${theme.colors.ice};
 
     @media ${theme.media.desktop} {
+      padding-inline: 6vw;
       padding-top: 55px;
+      margin-top: 50px;
+      border-radius: 25px 25px 0 0;
     }
   `}
 `;
@@ -150,10 +154,17 @@ export const Label = styled.label`
 `;
 
 export const Checkbox = styled.input`
-  ${() => css`
-    width: 25px;
-    height: 25px;
+  ${({ theme }) => css`
+    width: 20px;
+    height: 20px;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    @media ${theme.media.desktop} {
+      width: 25px;
+      height: 25px;
+    }
   `}
 `;
 export const SubmitButton = styled.button`

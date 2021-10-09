@@ -19,6 +19,7 @@ export const MainContentComponent = () => {
   const [city, setCity] = useState<string>("");
   const [temperature, setTemperature] = useState<number>(0);
   const [genre, setGenre] = useState<string>("");
+  const [isLoadingMusics, setIsLoadingMusics] = useState<boolean>(false);
 
   const [querySystem, setQuerySystem] = useState<
     "myLocalization" | "city" | "coordenates" | "zipCode"
@@ -64,7 +65,7 @@ export const MainContentComponent = () => {
 
   useEffect(() => {
     if (genre.length !== 0) {
-      loadSongs(genre, setData);
+      loadSongs(genre, setData, setIsLoadingMusics);
     }
   }, [genre]);
 
@@ -78,12 +79,16 @@ export const MainContentComponent = () => {
         option={option}
         geographicValue={geographicValue}
       />
-      <SongsSection
-        songs={data}
-        temperature={temperature}
-        city={city}
-        genre={genre}
-      />
+      {isLoadingMusics ? (
+        <Styled.Loading />
+      ) : (
+        <SongsSection
+          songs={data}
+          temperature={temperature}
+          city={city}
+          genre={genre}
+        />
+      )}
     </Styled.Main>
   );
 };

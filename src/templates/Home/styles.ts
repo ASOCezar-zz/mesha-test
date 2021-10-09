@@ -8,8 +8,8 @@ export const Container = styled.div`
     flex-direction: column;
 
     @media ${theme.media.desktop} {
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
   `}
 `;

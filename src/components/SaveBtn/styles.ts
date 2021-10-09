@@ -16,6 +16,10 @@ export const BtnSave = styled.button`
     opacity: 0.7;
     border-radius: 15px;
 
+    @media ${theme.media.desktop} {
+      height: 60px;
+    }
+
     :hover {
       opacity: 1;
     }

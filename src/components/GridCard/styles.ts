@@ -11,11 +11,21 @@ export const Container = styled.li`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+
+    :hover {
+      transform: scale(1.1);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    }
 
     img {
       max-height: 100%;
       max-width: 100%;
+      width: 200px;
+      height: 200px;
       border-radius: 20px;
+      align-self: center;
     }
   `}
 `;
@@ -35,6 +45,8 @@ export const Button = styled.button`
     transition: opacity 0.1s linear;
     transition: box-shadow 0.1s linear;
     margin-top: 10px;
+    z-index: 1;
+    cursor: pointer;
 
     :active {
       opacity: 1;

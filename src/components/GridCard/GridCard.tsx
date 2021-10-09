@@ -21,9 +21,11 @@ export const GridCardComponent = ({
   };
 
   return (
-    <Styled.Container onClick={() => setClickedPlaylist(favorite.songs)}>
+    <Styled.Container>
       <img src={favorite.songs[0].coverImg} />
-      <Styled.Title> Playlist </Styled.Title>
+      <Styled.Title onClick={() => setClickedPlaylist(favorite.songs)}>
+        Click to Open Playlist
+      </Styled.Title>
       <p title="Save Data"> Salva em: {favorite.date}</p>
       <p> Gênero: {favorite.genre} </p>
       <p>Temperatura no momento da Pesquisa: {favorite.temperature}</p>

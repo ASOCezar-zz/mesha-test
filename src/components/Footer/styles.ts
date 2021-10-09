@@ -2,8 +2,10 @@ import styled, { css } from "styled-components";
 
 export const Footer = styled.footer`
   ${({ theme }) => css`
-    height: 40px;
+    height: 80px;
     width: 100%;
+    position: relative;
+    inset-block-end: 0;
     background-color: ${theme.colors.primaryColor};
     justify-content: center;
     display: flex;

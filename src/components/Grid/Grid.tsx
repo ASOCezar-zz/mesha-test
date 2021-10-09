@@ -12,8 +12,6 @@ export const GridComponent = () => {
   const [clickedPlaylist, setClickedPlaylist] = useState<ISongs[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  console.log(isModalOpen);
-
   useEffect(() => {
     clickedPlaylist.length ? setIsModalOpen(true) : setIsModalOpen(false);
   }, [clickedPlaylist]);

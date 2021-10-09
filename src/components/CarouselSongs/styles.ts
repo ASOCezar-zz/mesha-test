@@ -18,7 +18,7 @@ export const Container = styled.div`
     #item-4:checked ~ .cards #song-3,
     #item-5:checked ~ .cards #song-4 {
       @media ${theme.media.desktop} {
-        transform: translatex(clamp(-260px, -80%, -100px)) scale(0.6);
+        transform: translatex(clamp(-170px, -40%, -100px)) scale(0.8);
       }
       transform: translatex(clamp(-120px, -60%, -50px)) scale(0.8);
       opacity: 0.8;
