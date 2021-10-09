@@ -20,6 +20,7 @@ export const MainContentComponent = () => {
   const [temperature, setTemperature] = useState<number>(0);
   const [genre, setGenre] = useState<string>("");
   const [isLoadingMusics, setIsLoadingMusics] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const [querySystem, setQuerySystem] = useState<
     "myLocalization" | "city" | "coordenates" | "zipCode"
@@ -51,11 +52,12 @@ export const MainContentComponent = () => {
 
     const weather = await loadWeather(await getQuery());
 
-    if (weather === null) {
-      console.warn("Failed to load temperature");
+    if (weather === "Error getting temperature") {
+      setIsError(true);
       return;
     }
 
+    setIsError(false);
     setTemperature(weather.temperature);
 
     setCity(weather.city);
@@ -81,6 +83,18 @@ export const MainContentComponent = () => {
       />
       {isLoadingMusics ? (
         <Styled.Loading />
+      ) : isError ? (
+        <Styled.Error>
+          <strong>
+            PUTZ! Alguma coisa deu errado enquanto a gente tentava encontrar as
+            suas indicações. Por favor, tente novamente!!
+          </strong>
+          <small> O campo zip code serve apenas para estados dos EUA. </small>
+          <small>
+            Alguns ADBlocks podem fazer essa aplicação não funcionar. Considere
+            desativá-lo, juro que não vou passar anúncios!
+          </small>
+        </Styled.Error>
       ) : (
         <SongsSection
           songs={data}

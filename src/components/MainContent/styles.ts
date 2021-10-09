@@ -12,6 +12,45 @@ export const Main = styled.main`
   `}
 `;
 
+export const Error = styled.div`
+  ${({ theme }) => css`
+    background-color: ${theme.colors.lightBlue};
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+
+    strong {
+      color: ${theme.colors.warning};
+      font-weight: ${theme.font.weight.extraBold};
+      font-size: ${theme.font.sizes.medium};
+    }
+    small {
+      color: ${theme.colors.primaryColor};
+      font-weight: ${theme.font.weight.normal};
+      font-size: ${theme.font.sizes.small};
+    }
+    @media ${theme.media.desktop} {
+      height: 600px;
+      padding: 50px;
+      strong {
+        color: ${theme.colors.warning};
+        font-weight: ${theme.font.weight.extraBold};
+        font-size: ${theme.font.sizes.large};
+      }
+      small {
+        color: ${theme.colors.primaryColor};
+        font-weight: ${theme.font.weight.normal};
+        font-size: ${theme.font.sizes.medium};
+      }
+    }
+  `};
+`;
+
 const rotate = () => keyframes`
   0% {
     transform: translate(-50%, -50%) rotate(0deg);
