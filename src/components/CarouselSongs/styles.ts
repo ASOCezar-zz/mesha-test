@@ -12,6 +12,10 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
 
+    @media ${theme.media.desktop} {
+      margin-top: 30px;
+    }
+
     #item-1:checked ~ .cards #song-5,
     #item-2:checked ~ .cards #song-1,
     #item-3:checked ~ .cards #song-2,
