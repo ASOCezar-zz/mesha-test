@@ -15,7 +15,6 @@ export const Wrapper = styled.label`
     cursor: pointer;
     list-style: none;
     white-space: nowrap;
-    overflow: hidden;
   `}
 
   img {
@@ -27,17 +26,20 @@ export const Wrapper = styled.label`
     object-fit: cover;
   }
 `;
-export const Audio = styled.audio``;
+export const Audio = styled.audio`
+  margin-top: 40px;
+`;
 
 const titleAnimation = keyframes`
-  from {transform: translatex(0)}
+  from {transform: translatex(20px)}
   to {transform: translatex(-400px)}
 `;
 
 export const Title = styled.a`
   ${() => css`
+    overflow: hidden;
     h2 {
-      animation: ${titleAnimation} 5s linear infinite;
+      animation: ${titleAnimation} 5.5s linear infinite;
     }
   `}
 `;

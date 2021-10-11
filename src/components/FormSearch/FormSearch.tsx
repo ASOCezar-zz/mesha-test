@@ -3,7 +3,9 @@ import * as Styled from "./styles";
 
 interface IFormSearchProps {
   setQuerySystem: React.Dispatch<
-    React.SetStateAction<"myLocalization" | "city" | "coordenates" | "zipCode">
+    React.SetStateAction<
+      "myLocalization" | "city" | "coordenates" | "zipCode" | "error"
+    >
   >;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   setGeographicValue: React.Dispatch<

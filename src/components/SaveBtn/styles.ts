@@ -17,6 +17,7 @@ export const BtnSave = styled.button`
     border-radius: 15px;
 
     @media ${theme.media.desktop} {
+      margin-top: 150px;
       height: 60px;
     }
 
