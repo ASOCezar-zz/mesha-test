@@ -3,9 +3,7 @@ import * as Styled from "./styles";
 
 interface IFormSearchProps {
   setQuerySystem: React.Dispatch<
-    React.SetStateAction<
-      "myLocalization" | "city" | "coordenates" | "zipCode" | "error"
-    >
+    React.SetStateAction<"myLocalization" | "city" | "coordenates" | "zipCode">
   >;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   setGeographicValue: React.Dispatch<
@@ -98,6 +96,7 @@ export const FormSearchComponent = ({
           type="radio"
           name="checkbox"
           value="myLocalization"
+          defaultChecked
           onChange={() => handleCheckboxChange("myLocalization")}
         />
         Usar sua localização

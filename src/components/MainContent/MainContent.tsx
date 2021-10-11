@@ -23,8 +23,8 @@ export const MainContentComponent = () => {
   const [isError, setIsError] = useState<boolean>(false);
 
   const [querySystem, setQuerySystem] = useState<
-    "myLocalization" | "city" | "coordenates" | "zipCode" | "error"
-  >("error");
+    "myLocalization" | "city" | "coordenates" | "zipCode"
+  >("myLocalization");
 
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -39,27 +39,19 @@ export const MainContentComponent = () => {
     event.preventDefault();
 
     const getQuery = async (): Promise<string> => {
-      if (querySystem === "error") {
-        setIsError(true);
-        return "error";
-      } else {
-        const queries = {
-          myLocalization: async () => `q=${await loadLocation(setIsError)}`,
-          city: () => `q=${searchValue}`,
-          coordenates: () =>
-            `lat=${geographicValue.lat}&lon=${geographicValue.long}`,
-          zipCode: () => `zip=${searchValue}`,
-        };
-        return queries[querySystem]();
-      }
+      const queries = {
+        myLocalization: async () => `q=${await loadLocation(setIsError)}`,
+        city: () => `q=${searchValue}`,
+        coordenates: () =>
+          `lat=${geographicValue.lat}&lon=${geographicValue.long}`,
+        zipCode: () => `zip=${searchValue}`,
+      };
+      return queries[querySystem]();
     };
-    if ((await getQuery()) === "error") {
-      return;
-    }
 
     const weather = await loadWeather(await getQuery(), setIsError);
 
-    if (weather !== null) {
+    if (weather) {
       setIsError(false);
       setTemperature(weather.temperature);
 
