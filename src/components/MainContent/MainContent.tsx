@@ -54,12 +54,13 @@ export const MainContentComponent = () => {
     if (weather) {
       setIsError(false);
       setTemperature(weather.temperature);
-
       setCity(weather.city);
-
-      setGenre(switchGenres(temperature));
     }
   };
+
+  useEffect(() => {
+    setGenre(switchGenres(temperature));
+  }, [temperature]);
 
   useEffect(() => {
     if (genre.length !== 0) {
